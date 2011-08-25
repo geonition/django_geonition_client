@@ -6,4 +6,5 @@ setup(
     author='Kristoffer Snabb',
     url='https://github.com/geonition/django_geonition_client',
     packages=['geonition_client'],
+    install_requires=['jsmin']
 )
