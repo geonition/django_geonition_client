@@ -5,7 +5,7 @@ from django.template import TemplateDoesNotExist
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 
-import settings
+from django.conf import settings
 import django
 import logging
 import jsmin #to minify the javascript
@@ -34,18 +34,13 @@ def javascript_api(request):
     logger.debug("The client loaded library %s" %lib)
 
     # get the templates
-    softgis_templates = []
-    for app in settings.INSTALLED_APPS:
-        ind = app.find("softgis_")
-        if ind != -1:
-            softgis_templates.append("%s.%s.js" % (app[ind:], lib))
-            logger.debug("%s.%s.js file was concatenated to unique js script"  % (app[ind:], lib))
+    js_templates = getattr(settings, 'JAVASCRIPT_CLIENT_TEMPLATES', [])
     
     # render the clients to strings
-    softgis_clients = []
-    for template in softgis_templates:
+    js_clients = []
+    for template in js_templates:
         try:
-            softgis_clients.append(
+            js_clients.append(
                 render_to_string(
                     template,
                     RequestContext(request)
@@ -63,7 +58,7 @@ def javascript_api(request):
     js_string = render_to_string(
                     "javascript/softgis.%s.js" % lib,
                     RequestContext(request,
-                              {'softgis_clients': softgis_clients,
+                              {'softgis_clients': js_clients,
                                'host': host,
                                'method': pre_url,
                                'CSRF_Cookie_Name' : getattr(settings, "CSRF_COOKIE_NAME","csrftoken")
