@@ -4,7 +4,7 @@ from django.conf.urls.defaults import url
 
 import sys, os
 
-urlpatterns = patterns('softgis_client.views',
+urlpatterns = patterns('geonition_client.views',
                 
             #javascript API for the REST
             url(r'^softgis.js',
