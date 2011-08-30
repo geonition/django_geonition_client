@@ -1,7 +1,5 @@
-import os
-from distutils.core import setup
+from setuptools import setup
 from setuptools import find_packages
-
 
 setup(
     name='geonition_client',
@@ -10,5 +8,6 @@ setup(
     url='https://github.com/geonition/django_geonition_client',
     packages=find_packages(),
     include_package_data=True,
+    zip_safe=False,
     install_requires=['jsmin'],
 )
