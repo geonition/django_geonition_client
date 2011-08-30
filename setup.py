@@ -8,6 +8,13 @@ setup(
     url='https://github.com/geonition/django_geonition_client',
     packages=find_packages(),
     include_package_data=True,
+    package_data = {
+        "geonition_client": [
+            "templates/*.txt",
+            "templates/javascript/*.js",
+            "templates/test/*.html"
+        ],
+    },
     zip_safe=False,
     install_requires=['jsmin'],
 )
