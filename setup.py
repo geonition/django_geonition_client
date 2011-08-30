@@ -12,9 +12,10 @@ setup(
         "geonition_client": [
             "templates/*.txt",
             "templates/javascript/*.js",
-            "templates/test/*.html"
+            "templates/test/*.html",
+            "static/softgis_ui_dojo.js"
         ],
     },
     zip_safe=False,
-    install_requires=['jsmin'],
+    install_requires=['django', 'jsmin'],
 )
