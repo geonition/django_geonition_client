@@ -39,15 +39,18 @@ def javascript_api(request):
     # render the clients to strings
     js_clients = []
     for template in js_templates:
-        try:
-            js_clients.append(
-                render_to_string(
-                    template,
-                    RequestContext(request)
-                ))
-        except TemplateDoesNotExist:
-           logger.warning("Javascript client file not found: %s" % template)            
-           pass
+        lib_m = ".%s." % lib
+        
+        if lib_m in template:
+            try:
+                js_clients.append(
+                    render_to_string(
+                        template,
+                        RequestContext(request)
+                    ))
+            except TemplateDoesNotExist:
+               logger.warning("Javascript template file not found: %s" % template)            
+               pass
     
     pre_url = "https://"
     if not request.is_secure():
