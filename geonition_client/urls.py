@@ -7,7 +7,7 @@ import sys, os
 urlpatterns = patterns('geonition_client.views',
                 
             #javascript API for the REST
-            url(r'^softgis.js',
+            url(r'^geonition.js',
                 'javascript_api',
                 name="api_javascript"),
             

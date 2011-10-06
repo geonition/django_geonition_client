@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
     <head>
-        <title>SoftGIS API test</title>
+        <title>Geonition API test</title>
         
         {% ifequal lib "esri" %}        
             <script type="text/javascript" src="https://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.3"></script>
@@ -10,9 +10,8 @@
         {% endifequal %}
         
         {% ifequal lib "jquery" %}
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-            <script type="text/javascript" src="http://api.softgis.fi/softgis_client/softgis.js?lib=jquery"></script>             
-            <!--<script type="text/javascript" src="{% url api_javascript %}?lib=jquery"></script>-->
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>      
+            <script type="text/javascript" src="{% url api_javascript %}?lib=jquery"></script>
         {% endifequal %}
         
     </head>
@@ -27,11 +26,17 @@
         
         {% ifequal lib "esri" %}
             // collect the esri javascript api tests here
+            console.log(gnt);
             
         {% endifequal %}
         
         {% ifequal lib "jquery" %}
             // collect the jquery javascript api tests here
+            console.log(gnt);
+            
+            // data_processing tests
+            json = {'some_value', true};
+            gnt.data_processing.csv_from_json(json);
             
         {% endifequal %}
         

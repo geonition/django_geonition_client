@@ -1,16 +1,12 @@
+from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.template import TemplateDoesNotExist
-from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 
-from django.conf import settings
-import django
-import logging
 import jsmin #to minify the javascript
-
-logger = logging.getLogger('api.client.view')
 
 @cache_page(60 * 15)
 def javascript_api(request):
@@ -30,8 +26,6 @@ def javascript_api(request):
     
     #default lib is esri
     lib = request.GET.get("lib", "esri")
-    
-    logger.debug("The client loaded library %s" %lib)
 
     # get the templates
     js_templates = getattr(settings, 'JAVASCRIPT_CLIENT_TEMPLATES', [])
@@ -42,15 +36,17 @@ def javascript_api(request):
         lib_m = ".%s." % lib
         
         if lib_m in template:
+            
             try:
+                print template
                 js_clients.append(
                     render_to_string(
                         template,
                         RequestContext(request)
                     ))
             except TemplateDoesNotExist:
-               logger.warning("Javascript template file not found: %s" % template)            
-               pass
+                print "template does not exist"
+                pass
     
     pre_url = "https://"
     if not request.is_secure():
@@ -74,7 +70,8 @@ def javascript_api(request):
         minified_js = jsmin.jsmin(js_string)
     
     # return the clients in one file
-    return HttpResponse(minified_js, mimetype="application/javascript")
+    return HttpResponse(minified_js,
+                        mimetype="application/javascript")
 
 
 def test_api(request):
