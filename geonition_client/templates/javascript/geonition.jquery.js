@@ -66,7 +66,7 @@ function validate_email(email_address){
   	}
 }
 
-{% for client in softgis_clients %}
+{% for client in geonition_clients %}
     {{ client }}
 {% endfor %}
 

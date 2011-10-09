@@ -2,7 +2,7 @@
 {% extends "javascript/softgis_client.commons.js" %}
 
 {% block library_specific_block %}
-    {% for client in softgis_clients %}
+    {% for client in geonition_clients %}
     {{ client }}
     {% endfor %}
 {% endblock %}

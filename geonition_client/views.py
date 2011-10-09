@@ -55,9 +55,9 @@ def javascript_api(request):
     host = request.get_host()
     
     js_string = render_to_string(
-                    "javascript/softgis.%s.js" % lib,
+                    "javascript/geonition.%s.js" % lib,
                     RequestContext(request,
-                              {'softgis_clients': js_clients,
+                              {'geonition_clients': js_clients,
                                'host': host,
                                'method': pre_url,
                                'CSRF_Cookie_Name' : getattr(settings, "CSRF_COOKIE_NAME","csrftoken")
