@@ -4,7 +4,7 @@
  
 {% block library_specific_block %}
 
-$('html').ajaxSend(function(event, xhr, settings) {
+$(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
