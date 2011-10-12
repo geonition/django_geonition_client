@@ -38,14 +38,12 @@ def javascript_api(request):
         if lib_m in template:
             
             try:
-                print template
                 js_clients.append(
                     render_to_string(
                         template,
                         RequestContext(request)
                     ))
             except TemplateDoesNotExist:
-                print "template does not exist"
                 pass
     
     pre_url = "https://"
@@ -70,8 +68,11 @@ def javascript_api(request):
         minified_js = jsmin.jsmin(js_string)
     
     # return the clients in one file
-    return HttpResponse(minified_js,
-                        mimetype="application/javascript")
+    
+    response = HttpResponse(minified_js,
+                            mimetype="application/javascript")
+    
+    return response
 
 
 def test_api(request):

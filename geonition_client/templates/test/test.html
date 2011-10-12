@@ -23,7 +23,8 @@
         </p>
         <div id="results" style="color:red"></div>
         <script>
-        
+            {% csrf_token %}
+                
         {% ifequal lib "esri" %}
             
         {% endifequal %}

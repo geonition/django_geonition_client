@@ -1,5 +1,5 @@
 
-{% extends "javascript/softgis_client.commons.js" %}
+{% extends "javascript/geonition.commons.js" %}
 
  
 {% block library_specific_block %}
@@ -35,10 +35,9 @@ $(document).ajaxSend(function(event, xhr, settings) {
     function safeMethod(method) {
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
-
-    //if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    //}
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie(CSRF_Cookie_Name));
+    }
 });
 
 
