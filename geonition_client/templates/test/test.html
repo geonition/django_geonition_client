@@ -2,53 +2,45 @@
 <html>
     <head>
         <title>Geonition API test</title>
-        
-        {% ifequal lib "esri" %}        
-            <script type="text/javascript" src="https://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.3"></script>
-            <!--  <script type="text/javascript" src="http://api.softgis.fi/softgis_client/softgis.js?lib=esri"></script> -->
-           <script type="text/javascript" src="{% url api_javascript %}?lib=esri"></script> 
-        {% endifequal %}
-        
-        {% ifequal lib "jquery" %}
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>      
-            <script type="text/javascript" src="{% url api_javascript %}?lib=jquery"></script>
-        {% endifequal %}
-        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>      
+        <script type="text/javascript" src="{% url api_javascript %}"></script>        
     </head>
     <body>
         <p>
             This page loaded the softgis dojo javascript api,
-            
             you can test it further in a javascript console.
         </p>
-        <div id="results" style="color:red"></div>
-        <script>
-            {% csrf_token %}
-                
-        {% ifequal lib "esri" %}
-            
-        {% endifequal %}
+        {% csrf_token %}
         
-        {% ifequal lib "jquery" %}
-        //session creation
-        create_session(console.log);
-        //get_session(console.log);
-        //delete_session(console.log);
-        //create_session(console.log);
-        get_session(console.log);
-        //create_session(console.log);
+        <script type="text/javascript">
         
+        $(document).ready(
+            function() {
+                //session creation
+                gnt.auth.create_session(console.log);
+                get_session(console.log);
+                delete_session(console.log);
+                create_session(console.log);
+                gnt.auth.get_session(console.log);
+                create_session(console.log);
+                delete_session(console.log);
         
-        //geo application
-        gnt.geo.get_features("", console.log);
-        gnt.geo.create_feature({"type": "Feature",
-                                "geometry": { "type": "Point",
-                                            "coordinates": [100.0, 0.0] },
-                                "properties": {}},
-                                console.log)
-                                
+                //geo application
+                gnt.geo.get_features("", console.log);
+                gnt.geo.create_feature({"type": "Feature",
+                                        "geometry": { "type": "Point",
+                                                    "coordinates": [100.0, 0.0] },
+                                        "properties": {}},
+                                        console.log);
         
-        {% endifequal %}
+                gnt.geo.update_feature({"type": "Feature",
+                                        "geometry": { "type": "Point",
+                                                    "coordinates": [100.0, 0.0] },
+                                        "properties": {"some": 3}},
+                                        console.log);
+            }
+        );
+        
         
         </script>
     </body>
