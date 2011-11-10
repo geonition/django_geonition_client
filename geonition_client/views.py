@@ -14,37 +14,23 @@ def javascript_api(request):
     This function returns the javascript client
     that was requested.
     
-    The client will be a combination of the
-    other installed softgis_* applications and
-    the <app_name>.<lib>.js templates they provide.
-    
-    To get the right kind of javascript functions
-    define a GET parameter:
-    ?lib=esri --> returns the esri suitable javascript functions
-    ?lib=jquery --> returns the jquery geojson functions
+    The client will be a combination of the javascript
+    templates found in settings under JAVASCRIPT_CLIENT_TEMPLATES
     """
-    
-    #default lib is esri
-    lib = request.GET.get("lib", "esri")
-
     # get the templates
     js_templates = getattr(settings, 'JAVASCRIPT_CLIENT_TEMPLATES', [])
     
     # render the clients to strings
     js_clients = []
-    for template in js_templates:
-        lib_m = ".%s." % lib
-        
-        if lib_m in template:
-            
-            try:
-                js_clients.append(
-                    render_to_string(
-                        template,
-                        RequestContext(request)
-                    ))
-            except TemplateDoesNotExist:
-                pass
+    for template in js_templates:        
+        try:
+            js_clients.append(
+                render_to_string(
+                    template,
+                    RequestContext(request)
+                ))
+        except TemplateDoesNotExist:
+            pass
     
     pre_url = "https://"
     if not request.is_secure():
@@ -53,7 +39,7 @@ def javascript_api(request):
     host = request.get_host()
     
     js_string = render_to_string(
-                    "javascript/geonition.%s.js" % lib,
+                    "javascript/geonition.jquery.js",
                     RequestContext(request,
                               {'geonition_clients': js_clients,
                                'host': host,
@@ -82,11 +68,7 @@ def test_api(request):
     functions can be tested from a javascript console.
     """
     
-    #default lib is esri
-    lib = request.GET.get("lib", "esri")
-    
     return render_to_response("test/test.html",
-                              {'lib' : lib},
                               context_instance = RequestContext(request))
     
     
