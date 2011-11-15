@@ -17,13 +17,16 @@
         $(document).ready(
             function() {
                 //session creation
+                console.log("1.create session:");
                 gnt.auth.create_session(console.log);
-                get_session(console.log);
-                delete_session(console.log);
-                create_session(console.log);
-                gnt.auth.get_session(console.log);
-                create_session(console.log);
-                delete_session(console.log);
+                console.log("2.delete session:");
+                gnt.auth.delete_session(console.log);
+                console.log("3.create session:");
+                gnt.auth.create_session(console.log);
+                console.log("4.create session:");
+                gnt.auth.create_session(console.log);
+                console.log("5.delete session:");
+                gnt.auth.delete_session(console.log);
         
                 //geo application
                 gnt.geo.get_features("", console.log);
@@ -38,6 +41,16 @@
                                                     "coordinates": [100.0, 0.0] },
                                         "properties": {"some": 3}},
                                         console.log);
+                                        
+                //check many session creations and logout after each other
+                for(var i = 0; i < 20; i++) {
+                    gnt.auth.create_session(console.log);
+                    gnt.auth.logout(console.log);
+                }
+                
+                //create session and then directly after try to get the person
+                gnt.auth.create_session(console.log);
+                gnt.opensocial_people.get_person('@me', console.log);
             }
         );
         

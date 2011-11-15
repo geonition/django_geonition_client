@@ -64,6 +64,13 @@ $(document).ajaxSend(function(event, xhr, settings) {
     }
 });
 
+/*
+ add tje json2.js file for compatibility with older browsers and
+ browsers that does not support JSON stringify etc.
+*/
+
+{% include 'javascript/json2.js' %}
+
 {% for client in geonition_clients %}
     {{ client }}
 {% endfor %}
