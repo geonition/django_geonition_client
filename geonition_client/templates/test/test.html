@@ -49,6 +49,12 @@
                 //create session and then directly after try to get the person
                 gnt.auth.create_session();
                 gnt.opensocial_people.get_person();
+                
+                gnt.auth.delete_session();
+                gnt.auth.register('åäö', 'åäö');
+                gnt.auth.logout();
+                
+                gnt.auth.login('åäö','åäö');
             }
         );
         
