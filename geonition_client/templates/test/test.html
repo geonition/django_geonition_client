@@ -18,39 +18,37 @@
             function() {
                 //session creation
                 console.log("1.create session:");
-                gnt.auth.create_session(console.log);
+                gnt.auth.create_session();
                 console.log("2.delete session:");
-                gnt.auth.delete_session(console.log);
+                gnt.auth.delete_session();
                 console.log("3.create session:");
-                gnt.auth.create_session(console.log);
+                gnt.auth.create_session();
                 console.log("4.create session:");
-                gnt.auth.create_session(console.log);
+                gnt.auth.create_session();
                 console.log("5.delete session:");
-                gnt.auth.delete_session(console.log);
+                gnt.auth.delete_session();
         
                 //geo application
-                gnt.geo.get_features("", console.log);
+                gnt.geo.get_features("");
                 gnt.geo.create_feature({"type": "Feature",
                                         "geometry": { "type": "Point",
                                                     "coordinates": [100.0, 0.0] },
-                                        "properties": {}},
-                                        console.log);
+                                        "properties": {}});
         
                 gnt.geo.update_feature({"type": "Feature",
                                         "geometry": { "type": "Point",
                                                     "coordinates": [100.0, 0.0] },
-                                        "properties": {"some": 3}},
-                                        console.log);
+                                        "properties": {"some": 3}});
                                         
                 //check many session creations and logout after each other
                 for(var i = 0; i < 20; i++) {
-                    gnt.auth.create_session(console.log);
-                    gnt.auth.logout(console.log);
+                    gnt.auth.create_session();
+                    gnt.auth.logout();
                 }
                 
                 //create session and then directly after try to get the person
-                gnt.auth.create_session(console.log);
-                gnt.opensocial_people.get_person('@me', console.log);
+                gnt.auth.create_session();
+                gnt.opensocial_people.get_person();
             }
         );
         
