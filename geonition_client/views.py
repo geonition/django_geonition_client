@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 
 import jsmin #to minify the javascript
 
-@cache_page(60 * 15)
+@cache_page(60 * 60 * 24 * 7)
 def javascript_api(request):
     """
     This function returns the javascript client
