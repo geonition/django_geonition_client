@@ -14,33 +14,45 @@
         
         <script type="text/javascript">
         
+        var test_feature;
+        $.ajaxSetup({
+            async: true
+            })
         $(document).ready(
             function() {
                 //session creation
                 if(gnt.auth !== undefined) {
-                    gnt.auth.create_session(console.log);
-                    gnt.auth.get_session(console.log);
-                    gnt.auth.delete_session(console.log);
-                    gnt.auth.create_session(console.log);
-                    gnt.auth.get_session(console.log);
-                    gnt.auth.create_session(console.log);
-                    gnt.auth.delete_session(console.log);
+                    gnt.auth.create_session();
+                    gnt.auth.get_session();
+                    gnt.auth.delete_session();
+                    gnt.auth.create_session();
+                    gnt.auth.get_session();
+                    gnt.auth.create_session();
+                    gnt.auth.delete_session();
                 }
         
                 //geo application
-                if(gnt.geo !== undefined) {
-                    gnt.geo.get_features("", console.log);
+                if(gnt.geo !== undefined && gnt.auth !== undefined) {
+                
+                    gnt.auth.create_session();
+                    
+                    gnt.geo.get_features("");
                     gnt.geo.create_feature({"type": "Feature",
                                             "geometry": { "type": "Point",
                                                         "coordinates": [100.0, 0.0] },
                                             "properties": {}},
-                                            console.log);
-        
-                    gnt.geo.update_feature({"type": "Feature",
-                                            "geometry": { "type": "Point",
-                                                    "coordinates": [100.0, 0.0] },
-                                            "properties": {"some": 3}},
-                                            console.log);
+                                            function(response) {
+                                                test_feature = response;
+                                                test_feature['properties']['some'] = 3;
+                                                gnt.geo.update_feature(test_feature);
+                                                gnt.geo.get_features("");
+                                            });
+                   
+                                            
+                   //check if the geojson_to_csv works in data_processing
+                   if(gnt.data_processing !== undefined) {
+                        
+                   }
                 }
             }
         );
