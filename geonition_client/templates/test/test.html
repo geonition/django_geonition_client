@@ -17,27 +17,31 @@
         $(document).ready(
             function() {
                 //session creation
-                gnt.auth.create_session(console.log);
-                get_session(console.log);
-                delete_session(console.log);
-                create_session(console.log);
-                gnt.auth.get_session(console.log);
-                create_session(console.log);
-                delete_session(console.log);
+                if(gnt.auth !== undefined) {
+                    gnt.auth.create_session(console.log);
+                    gnt.auth.get_session(console.log);
+                    gnt.auth.delete_session(console.log);
+                    gnt.auth.create_session(console.log);
+                    gnt.auth.get_session(console.log);
+                    gnt.auth.create_session(console.log);
+                    gnt.auth.delete_session(console.log);
+                }
         
                 //geo application
-                gnt.geo.get_features("", console.log);
-                gnt.geo.create_feature({"type": "Feature",
-                                        "geometry": { "type": "Point",
-                                                    "coordinates": [100.0, 0.0] },
-                                        "properties": {}},
-                                        console.log);
+                if(gnt.geo !== undefined) {
+                    gnt.geo.get_features("", console.log);
+                    gnt.geo.create_feature({"type": "Feature",
+                                            "geometry": { "type": "Point",
+                                                        "coordinates": [100.0, 0.0] },
+                                            "properties": {}},
+                                            console.log);
         
-                gnt.geo.update_feature({"type": "Feature",
-                                        "geometry": { "type": "Point",
+                    gnt.geo.update_feature({"type": "Feature",
+                                            "geometry": { "type": "Point",
                                                     "coordinates": [100.0, 0.0] },
-                                        "properties": {"some": 3}},
-                                        console.log);
+                                            "properties": {"some": 3}},
+                                            console.log);
+                }
             }
         );
         
