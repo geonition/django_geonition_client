@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.template import TemplateDoesNotExist
+from django.core.cache import cache
 
 import jsmin #to minify the javascript
 
@@ -15,6 +16,11 @@ def javascript_api(request):
     The client will be a combination of the javascript
     templates found in settings under JAVASCRIPT_CLIENT_TEMPLATES
     """
+    cache_id = 'gnt_client_resp_{0}'.format(request.META['HTTP_HOST'])
+    response = cache.get(cache_id)
+    if response is not None:
+        return response
+
     # get the templates
     js_templates = getattr(settings, 'JAVASCRIPT_CLIENT_TEMPLATES', [])
     
@@ -56,6 +62,7 @@ def javascript_api(request):
     response = HttpResponse(minified_js,
                             mimetype="application/javascript")
     
+    cache.set(cache_id, response, 3600)
     return response
 
 
