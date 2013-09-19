@@ -4,11 +4,9 @@ from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.template import TemplateDoesNotExist
-from django.views.decorators.cache import cache_page
 
 import jsmin #to minify the javascript
 
-@cache_page(60 * 15)
 def javascript_api(request):
     """
     This function returns the javascript client
